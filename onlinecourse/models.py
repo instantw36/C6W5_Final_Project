@@ -129,12 +129,12 @@ class Question(models.Model):
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
 class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, default="")
     content = models.CharField(max_length=200)
     correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return "Choises: " + self.content
+        return self.content
 
 # <HINT> The submission model
 # One enrollment could have multiple submission
@@ -144,3 +144,5 @@ class Submission(models.Model):
    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
    choices = models.ManyToManyField(Choice)
 #    Other fields and methods you would like to design
+   def __str__(self):
+        return f"submission:{self.pk}"
